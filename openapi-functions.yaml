@@ -1,0 +1,31 @@
+swagger: '2.0'
+info:
+  title: Spinnaker Test Telemetry
+  version: 1.0.0
+host: spinnaker-telemetry-ntkfybpjfq-uc.a.run.app
+schemes:
+- https
+x-google-backend:
+  address: https://us-central1-ttomsu-dev-spinnaker.cloudfunctions.net/spinnaker-telemetry
+#paths: {}
+paths:
+  /spinnaker-telemetry:
+    get:
+#      summary: ""
+      operationId: "get"
+      x-google-backend:
+        address: https://us-central1-ttomsu-dev-spinnaker.cloudfunctions.net/spinnaker-telemetry
+      responses:
+        '200':
+          description: ""
+          schema:
+            type: string
+    post:
+      operationId: "post"
+      x-google-backend:
+        address: https://us-central1-ttomsu-dev-spinnaker.cloudfunctions.net/spinnaker-telemetry
+      responses:
+        '200':
+          description: ""
+          schema:
+            type: string
