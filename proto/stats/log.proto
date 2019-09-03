@@ -4,6 +4,9 @@ package io.spinnaker.protos.stats;
 
 option go_package = "github.com/spinnaker/proto/stats";
 
+option java_package = "com.netflix.spinnaker.proto.stats";
+option java_multiple_files = true;
+
 message Event {
   SpinnakerInstance spinnaker_instance = 1;
 }
