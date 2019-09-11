@@ -18,7 +18,7 @@ steps:
          '--quiet']
 
 substitutions:
-  _SERVICE_NAME: spinnaker-telemetry-run
+  _SERVICE_NAME: stats-staging
   _REGION: us-central1
   _PLATFORM: managed
 
