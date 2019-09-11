@@ -4,23 +4,6 @@ steps:
          '-t', 'gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA',
          '-t', 'gcr.io/$PROJECT_ID/$REPO_NAME:latest',
          '.']
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push',
-         'gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA']
-- name: 'gcr.io/cloud-builders/gcloud'
-  args: ['beta',
-         'run',
-         'deploy', '$_SERVICE_NAME',
-         '--image', 'gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA',
-         '--region', '$_REGION',
-         '--platform', '$_PLATFORM',
-         '--set-env-vars', 'GCP_PROJECT=$PROJECT_ID',
-         '--quiet']
-
-substitutions:
-  _SERVICE_NAME: spinnaker-telemetry-run
-  _REGION: us-central1
-  _PLATFORM: managed
 
 images:
 - gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA
