@@ -10,26 +10,44 @@ import (
 
 	"cloud.google.com/go/logging"
 	"github.com/golang/protobuf/jsonpb"
+	"github.com/golang/protobuf/proto"
 
 	"github.com/spinnaker/proto/stats"
 )
 
 const (
-	ENV_SERVICE = "K_SERVICE"
-	ENV_REVISION = "K_REVISION"
+	ENV_SERVICE       = "K_SERVICE"
+	ENV_REVISION      = "K_REVISION"
 	ENV_CONFIGURATION = "K_CONFIGURATION"
 
 	LOGGING_DELAY = 30 // seconds of delay before flushing any buffer.
 )
 
+const (
+	DefaultLogID = "spinnaker-log-events-staging"
+	ProdLogID    = "spinnaker-log-events-prod"
+
+	LogIDEnvKey    = "LOG_ID_ENV"
+	LogIdProdValue = "PROD"
+)
+
 var (
 	projectID = os.Getenv("GCP_PROJECT")
-	envVars = []string{
+	logID = DefaultLogID
+
+	envVars   = []string{
 		ENV_SERVICE,
 		ENV_REVISION,
 		ENV_CONFIGURATION,
 	}
+
 )
+
+func init() {
+	if (os.Getenv(LogIDEnvKey) == LogIdProdValue) {
+		logID = ProdLogID
+	}
+}
 
 func LogEvent(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
@@ -59,18 +77,18 @@ func handlePost(w http.ResponseWriter, r *http.Request) {
 
 	defer r.Body.Close()
 	if err := um.Unmarshal(r.Body, event); err != nil {
-		fmt.Fprintf(w, "Error unmarshalling Event: %v", err)
+		log.Printf("Error unmarshalling Event: %v", err)
 		return
 	}
-	log.Printf("Unmarshaled: %+v", event)
+	log.Printf("Unmarshaled:\n%+v\n", proto.MarshalTextString(event))
 
 	client, err := logging.NewClient(r.Context(), projectID)
 	if err != nil {
-		fmt.Fprintf(w, "could not create logging client: %v", err)
+		log.Printf("could not create logging client: %v", err)
 		return
 	}
 
-	logger := client.Logger("spinnaker-log-event",
+	logger := client.Logger(logID,
 		logging.EntryCountThreshold(5),
 		logging.DelayThreshold(time.Duration(LOGGING_DELAY)*time.Second))
 	entry := logging.Entry{
