@@ -8,6 +8,7 @@ pushd "${SCRIPT_DIR}"
 GOPATH=${GOPATH:=$HOME/go}
 GOBIN=${GOBIN:=$GOPATH/bin}
 
+go get -u github.com/golang/protobuf/protoc-gen-go
 go get -u github.com/mitchellh/protoc-gen-go-json
 
 if [[ ":$PATH:" != *":${GOBIN}:"* ]]; then
