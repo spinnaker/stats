@@ -52,8 +52,7 @@ func init() {
 func LogEvent(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodGet:
-		log.Println("Received GET method for ", r.URL)
-		handleGet(w, r)
+		HandleGet(w, r)
 		return
 	case http.MethodPost:
 		log.Println("Received POST method for ", r.URL)
@@ -61,10 +60,9 @@ func LogEvent(w http.ResponseWriter, r *http.Request) {
 	default:
 		http.Error(w, "405 - Method Not Allowed, punk!", http.StatusMethodNotAllowed)
 	}
-	fmt.Fprint(w, "Done.")
 }
 
-func handleGet(w http.ResponseWriter, r *http.Request) {
+func HandleGet(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "I'm healthy!\n")
 	for _, key := range envVars {
 		fmt.Fprintf(w, "%v: %v\n", key, os.Getenv(key))
@@ -78,6 +76,7 @@ func handlePost(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	if err := um.Unmarshal(r.Body, event); err != nil {
 		log.Printf("Error unmarshalling Event: %v", err)
+		http.Error(w, "Bad input", http.StatusUnprocessableEntity)
 		return
 	}
 	log.Printf("Unmarshaled:\n%+v\n", proto.MarshalTextString(event))
@@ -85,6 +84,7 @@ func handlePost(w http.ResponseWriter, r *http.Request) {
 	client, err := logging.NewClient(r.Context(), projectID)
 	if err != nil {
 		log.Printf("could not create logging client: %v", err)
+		http.Error(w, "Something went wrong logging this request", http.StatusInternalServerError)
 		return
 	}
 
@@ -97,4 +97,5 @@ func handlePost(w http.ResponseWriter, r *http.Request) {
 		Timestamp: time.Now().UTC(),
 	}
 	logger.Log(entry)
+	fmt.Fprint(w, "Done.")
 }

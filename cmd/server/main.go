@@ -16,6 +16,9 @@ var cliPort = flag.Int("port", 8080, "Ignored if PORT is set as environmental va
 func main() {
 	flag.Parse()
 
+	// TODO(ttomsu): Redirect to landing page with pretty graphs of all the data we get from this.
+	// TODO(ttomsu): Make HandleGet private again after that.
+	http.HandleFunc("/", internal.HandleGet)
 	http.HandleFunc("/log", internal.LogEvent)
 
 	port := 0
