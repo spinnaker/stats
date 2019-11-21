@@ -52,8 +52,7 @@ func init() {
 func LogEvent(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodGet:
-		log.Println("Received GET method for ", r.URL)
-		handleGet(w, r)
+		HandleGet(w, r)
 		return
 	case http.MethodPost:
 		log.Println("Received POST method for ", r.URL)
@@ -63,7 +62,7 @@ func LogEvent(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func handleGet(w http.ResponseWriter, r *http.Request) {
+func HandleGet(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "I'm healthy!\n")
 	for _, key := range envVars {
 		fmt.Fprintf(w, "%v: %v\n", key, os.Getenv(key))
