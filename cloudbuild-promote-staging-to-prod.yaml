@@ -3,12 +3,6 @@ steps:
     args: ['pull',
            'gcr.io/$PROJECT_ID/$REPO_NAME:$_SOURCE_TAG']
 
-  - name: 'gcr.io/cloud-builders/docker'
-    entrypoint: /bin/bash
-    args:
-      - -c
-      - docker images --format "{{.Digest}}" > /workspace/sourceDigest
-
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: /bin/bash
     args:
@@ -16,7 +10,7 @@ steps:
       - |
         set -x && \
         gcloud beta run deploy $_SERVICE_NAME \
-           --image "gcr.io/$PROJECT_ID/$REPO_NAME@$(cat /workspace/sourceDigest)" \
+           --image "gcr.io/$PROJECT_ID/$REPO_NAME:$_SOURCE_TAG" \
            --region $_REGION \
            --platform $_PLATFORM \
            --set-env-vars "GCP_PROJECT=$PROJECT_ID,LOG_ID_ENV=PROD" \
