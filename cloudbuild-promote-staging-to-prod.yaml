@@ -10,7 +10,8 @@ steps:
       - docker images --format "{{.Digest}}" > /workspace/sourceDigest
 
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['run',
+    args: ['beta',
+           'run',
            'deploy', '$_SERVICE_NAME',
            '--image', 'gcr.io/$PROJECT_ID/$REPO_NAME:`echo /workspace/sourceDigest`',
            '--region', '$_REGION',
