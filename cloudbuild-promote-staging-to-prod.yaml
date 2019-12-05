@@ -3,7 +3,7 @@ steps:
     args: ['pull',
            'gcr.io/$PROJECT_ID/$REPO_NAME:$_SOURCE_TAG']
 
-  - name: 'gcr.io/cloud-builders/curl'
+  - name: 'gcr.io/cloud-builders/docker'
     entrypoint: /bin/bash
     args:
       - -c
