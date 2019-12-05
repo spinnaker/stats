@@ -15,7 +15,7 @@ steps:
       - -c
       - |
         gcloud beta run deploy $_SERVICE_NAME \
-           --image "gcr.io/$PROJECT_ID/$REPO_NAME:$(cat /workspace/sourceDigest)" \
+           --image "gcr.io/$PROJECT_ID/$REPO_NAME@$(cat /workspace/sourceDigest)" \
            --region $_REGION \
            --platform $_PLATFORM \
            --set-env-vars "GCP_PROJECT=$PROJECT_ID,LOG_ID_ENV=PROD" \
