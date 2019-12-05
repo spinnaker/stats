@@ -12,7 +12,7 @@ steps:
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: /bin/bash
     args:
-      - '-c',
+      - -c
       - |
         gcloud beta run deploy $_SERVICE_NAME \
            --image "gcr.io/$PROJECT_ID/$REPO_NAME:`echo /workspace/sourceDigest`" \
