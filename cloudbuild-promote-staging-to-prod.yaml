@@ -14,6 +14,7 @@ steps:
     args:
       - -c
       - |
+        set -x && \
         gcloud beta run deploy $_SERVICE_NAME \
            --image "gcr.io/$PROJECT_ID/$REPO_NAME@$(cat /workspace/sourceDigest)" \
            --region $_REGION \
