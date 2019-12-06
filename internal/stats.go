@@ -2,6 +2,7 @@
 package internal
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"net/http"
@@ -24,6 +25,7 @@ const (
 )
 
 const (
+	StdOutLogID  = "spinnaker-stats-stdout"
 	DefaultLogID = "spinnaker-log-events-staging"
 	ProdLogID    = "spinnaker-log-events-prod"
 
@@ -41,12 +43,36 @@ var (
 		ENV_CONFIGURATION,
 	}
 
+	infoLogger *log.Logger
+	debugLogger *log.Logger
+
+	// The eventLogger is the logger that actually writes out the structured
+	// data from the request payload.
+	eventLogger *logging.Logger
 )
 
+// TODO(ttomsu): Consider wrapping this into a proper Server object and stop abusing package initialization.
+// This would also allow a flag to dump stdout to a terminal during local development.
 func init() {
-	if (os.Getenv(LogIDEnvKey) == LogIdProdValue) {
+	var loggingClient *logging.Client
+	var err error
+	if loggingClient, err = logging.NewClient(context.Background(), projectID); err != nil {
+		log.Fatalf("could not create logging client: %v", err)
+		return
+	}
+
+	stdOutLogger := loggingClient.Logger(StdOutLogID)
+	infoLogger = stdOutLogger.StandardLogger(logging.Info)
+	debugLogger = stdOutLogger.StandardLogger(logging.Debug)
+
+	if os.Getenv(LogIDEnvKey) == LogIdProdValue {
 		logID = ProdLogID
 	}
+	infoLogger.Printf("Using event log id: %v", logID)
+
+	eventLogger = loggingClient.Logger(logID,
+		logging.EntryCountThreshold(5),
+		logging.DelayThreshold(time.Duration(LOGGING_DELAY)*time.Second))
 }
 
 func LogEvent(w http.ResponseWriter, r *http.Request) {
@@ -55,7 +81,7 @@ func LogEvent(w http.ResponseWriter, r *http.Request) {
 		HandleGet(w, r)
 		return
 	case http.MethodPost:
-		log.Println("Received POST method for ", r.URL)
+		debugLogger.Println("Received POST method for ", r.URL)
 		handlePost(w, r)
 	default:
 		http.Error(w, "405 - Method Not Allowed, punk!", http.StatusMethodNotAllowed)
@@ -75,27 +101,17 @@ func handlePost(w http.ResponseWriter, r *http.Request) {
 
 	defer r.Body.Close()
 	if err := um.Unmarshal(r.Body, event); err != nil {
-		log.Printf("Error unmarshalling Event: %v", err)
+		debugLogger.Printf("Error unmarshalling Event: %v", err)
 		http.Error(w, "Bad input", http.StatusUnprocessableEntity)
 		return
 	}
-	log.Printf("Unmarshaled:\n%+v\n", proto.MarshalTextString(event))
+	debugLogger.Printf("Unmarshaled:\n%+v\n", proto.MarshalTextString(event))
 
-	client, err := logging.NewClient(r.Context(), projectID)
-	if err != nil {
-		log.Printf("could not create logging client: %v", err)
-		http.Error(w, "Something went wrong logging this request", http.StatusInternalServerError)
-		return
-	}
-
-	logger := client.Logger(logID,
-		logging.EntryCountThreshold(5),
-		logging.DelayThreshold(time.Duration(LOGGING_DELAY)*time.Second))
 	entry := logging.Entry{
 		Payload:   event,
 		Severity:  logging.Info,
 		Timestamp: time.Now().UTC(),
 	}
-	logger.Log(entry)
+	eventLogger.Log(entry)
 	fmt.Fprint(w, "Done.")
 }
