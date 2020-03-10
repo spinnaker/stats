@@ -21,6 +21,8 @@ github.com/golang/protobuf v1.2.0/go.mod h1:6lQm79b+lXiMfvg/cZm0SGofjICqVBUtrP5y
 github.com/golang/protobuf v1.3.1/go.mod h1:6lQm79b+lXiMfvg/cZm0SGofjICqVBUtrP5yJMmIC1U=
 github.com/golang/protobuf v1.3.2 h1:6nsPYzhq5kReh6QImI3k5qWzO4PEbvbIW2cwSfR/6xs=
 github.com/golang/protobuf v1.3.2/go.mod h1:6lQm79b+lXiMfvg/cZm0SGofjICqVBUtrP5yJMmIC1U=
+github.com/golang/protobuf v1.3.4 h1:87PNWwrRvUSnqS4dlcBU/ftvOIBep4sYuBLlh6rX2wk=
+github.com/golang/protobuf v1.3.4/go.mod h1:vzj43D7+SQXF/4pzW/hwtAqwc6iTitCiVSaWz5lYuqw=
 github.com/google/btree v0.0.0-20180813153112-4030bb1f1f0c/go.mod h1:lNA+9X1NB3Zf8V7Ke586lFgjr2dZNuvo3lPJSGZ5JPQ=
 github.com/google/btree v1.0.0/go.mod h1:lNA+9X1NB3Zf8V7Ke586lFgjr2dZNuvo3lPJSGZ5JPQ=
 github.com/google/go-cmp v0.2.0/go.mod h1:oXzfMopK8JAjlY9xF4vHSVASa0yLyX7SntLO5aqRK0M=
@@ -48,6 +50,8 @@ github.com/kr/pty v1.1.1/go.mod h1:pFQYn66WHrOpPYNljwOMqo10TkYh1fy3cYio2l3bCsQ=
 github.com/kr/text v0.1.0/go.mod h1:4Jbv+DJW3UT/LiOwJeYQe1efqtUx/iVham/4vfdArNI=
 github.com/mitchellh/protoc-gen-go-json v0.0.0-20190813154521-ece073100ced h1:9JtQcez8qM/hJaOCESn5Y+pFAQw0D2HxsI5ndMT40T4=
 github.com/mitchellh/protoc-gen-go-json v0.0.0-20190813154521-ece073100ced/go.mod h1:VhkV06JZBMrulb3fNiUvM5Lmz3yc7ei3omzocl9UtCw=
+github.com/mitchellh/protoc-gen-go-json v0.0.0-20200113165135-fd297ce346f1 h1:QSvnkyNptGhyjtu2K9Xr8399WBPk4sECq3o05XH1XCs=
+github.com/mitchellh/protoc-gen-go-json v0.0.0-20200113165135-fd297ce346f1/go.mod h1:VhkV06JZBMrulb3fNiUvM5Lmz3yc7ei3omzocl9UtCw=
 github.com/oklog/ulid/v2 v2.0.2 h1:r4fFzBm+bv0wNKNh5eXTwU7i85y5x+uwkxCUTNVQqLc=
 github.com/oklog/ulid/v2 v2.0.2/go.mod h1:mtBL0Qe/0HAx6/a4Z30qxVIAL1eQDweXq5lxOEiwQ68=
 github.com/pborman/getopt v0.0.0-20170112200414-7148bc3a4c30/go.mod h1:85jBQOZwpVEaDAr341tbn15RS4fCAsIst0qp7i8ex1o=
@@ -59,6 +63,8 @@ github.com/spinnaker/kork v6.18.0+incompatible/go.mod h1:yqMWgygneiV6aOHzjSfyrLg
 github.com/spinnaker/kork v6.18.1+incompatible h1:wc8GkGN3ngo2gSf+QF8gccT7hoSEdGDMOmp9lOi+NwE=
 github.com/spinnaker/kork v6.18.1+incompatible/go.mod h1:yqMWgygneiV6aOHzjSfyrLguxpv6jMkL2v4f7jjpP6o=
 github.com/spinnaker/kork v7.21.1+incompatible/go.mod h1:yqMWgygneiV6aOHzjSfyrLguxpv6jMkL2v4f7jjpP6o=
+github.com/spinnaker/kork v7.25.1+incompatible h1:uBvZ/C3oUXinLP70jqYBnEazWHu4Yzo41OswX0pLrqA=
+github.com/spinnaker/kork v7.25.1+incompatible/go.mod h1:yqMWgygneiV6aOHzjSfyrLguxpv6jMkL2v4f7jjpP6o=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
 go.opencensus.io v0.21.0/go.mod h1:mSImk1erAIZhrmZN+AvHh14ztQfjbGwt4TtuofqLduU=
