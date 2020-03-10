@@ -58,6 +58,7 @@ github.com/spinnaker/kork v6.18.0+incompatible h1:frZ+BrMsc/G1S0G5kO24Ccv+AttCbN
 github.com/spinnaker/kork v6.18.0+incompatible/go.mod h1:yqMWgygneiV6aOHzjSfyrLguxpv6jMkL2v4f7jjpP6o=
 github.com/spinnaker/kork v6.18.1+incompatible h1:wc8GkGN3ngo2gSf+QF8gccT7hoSEdGDMOmp9lOi+NwE=
 github.com/spinnaker/kork v6.18.1+incompatible/go.mod h1:yqMWgygneiV6aOHzjSfyrLguxpv6jMkL2v4f7jjpP6o=
+github.com/spinnaker/kork v7.21.1+incompatible/go.mod h1:yqMWgygneiV6aOHzjSfyrLguxpv6jMkL2v4f7jjpP6o=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
 go.opencensus.io v0.21.0/go.mod h1:mSImk1erAIZhrmZN+AvHh14ztQfjbGwt4TtuofqLduU=
