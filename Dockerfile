@@ -3,8 +3,6 @@ FROM mirror.gcr.io/library/golang as builder
 ADD . /workspace
 WORKDIR /workspace
 
-RUN ./proto/regen-protos.sh
-
 ENV GOPROXY=https://proxy.golang.org
 ENV GO111MODULE=on
 ENV CGO_ENABLED=0
