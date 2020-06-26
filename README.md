@@ -2,11 +2,9 @@
 
 This is the service that collects telemetry data from customer Spinnaker instances.
 
-This data helps the project maintainers and community decide where to focus our efforts and gauge how the product is being used in the wild.
+This data helps the project maintainers and the community decide where to focus our efforts and gauge how the product is being used in the wild.
 
-You can find aggregations and analysis of the collected data [here](TODO). For access to the raw data, you should be a contributing member of the community, and can request access by ... TODO.
-
-
+More information about the data being collected and how to request access to the raw data is available [on the Spinnaker website](https://spinnaker.io/community/stats/).
 
 ## Development
 
