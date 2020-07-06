@@ -23,5 +23,8 @@ This is triggered by adding a tag (generally by creating a release). (Notably,
 however, it doesn't push the tagged version to prod... it _always_ takes the
 version from staging.)
 
+The `stats` releases aren't connected to the Spinnaker releases, since there's
+only one endpoint that gathers data from _all_ Spinnaker versions.
+
 The data, the Cloud Run infrastructure, and the Cloud Builds all live in the
 [`stats-spinnaker-io` GCP project](https://console.cloud.google.com/home/dashboard?project=stats-spinnaker-io).
