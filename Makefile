@@ -3,7 +3,7 @@ protobuilder:
 
 proto_command = docker run \
   --rm \
-  --mount type=bind,source=$(abspath proto/stats),target=/output/go \
+  --mount type=bind,source=$(abspath proto/stats),target=/mnt/output/go \
   stats-protobuilder:latest
 
 proto: protobuilder

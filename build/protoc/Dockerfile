@@ -27,7 +27,6 @@ COPY --from=protoc /bin/protoc /usr/local/bin/protoc
 COPY --from=protoc /include/google /usr/local/include/google
 COPY --from=protoc-gen-go /protoc-gen-go /usr/local/bin/protoc-gen-go
 COPY --from=protoc-gen-go-json /go/bin/protoc-gen-go-json /bin/
-COPY --from=kork /kork/kork-proto/src/main/proto/stats/ /proto/
-RUN mkdir -p /output /staging/go
+COPY --from=kork /kork/kork-proto/src/main/proto/stats/ /opt/proto/
 COPY genproto.sh .
 ENTRYPOINT ["./genproto.sh"]

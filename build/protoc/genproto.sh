@@ -4,23 +4,23 @@ set -e
 PROTOC_FLAGS=""
 
 gen_proto() {
-  output_dir=$1
-  find /proto -name *.proto | sort | xargs protoc \
+  mkdir -p /tmp/staging/go
+  find /opt/proto -name *.proto | sort | xargs protoc \
     $PROTOC_FLAGS \
-    --proto_path=/proto \
-    --go_out=paths=source_relative:$1/go \
-    --go-json_out=$1/go
+    --proto_path=/opt/proto \
+    --go_out=paths=source_relative:/tmp/staging/go \
+    --go-json_out=tmp/staging/go
 }
 
 update_proto() {
-  gen_proto /staging
-  rm -rf /output/go/*
-  cp -r /staging/go/* /output/go/
+  gen_proto
+  rm -rf /mnt/output/go/*
+  cp -r /tmp/staging/go/* /mnt/output/go/
 }
 
 check_proto() {
-  gen_proto /staging
-  if ! diff -r /staging /output; then
+  gen_proto
+  if ! diff -r /tmp/staging /mnt/output; then
     echo "Protocol buffer compilation out of date. Please run 'make proto' and commit the changes."
     echo "To help with debugging, the difference between the committed and generated code is printed above."
     exit 1
