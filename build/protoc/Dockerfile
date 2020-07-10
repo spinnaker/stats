@@ -45,4 +45,6 @@ COPY --chown=root:root --from=protoc-gen-go-json /go/bin/protoc-gen-go-json /usr
 COPY --chown=root:root --from=kork /home/curl/kork/kork-proto/src/main/proto/stats/ /opt/proto/
 COPY genproto.sh /usr/local/bin/genproto.sh
 RUN chmod 755 /usr/local/bin/genproto.sh
+RUN adduser --disabled-password --gecos '' --no-create-home protoc
+USER protoc
 ENTRYPOINT ["/usr/local/bin/genproto.sh"]
