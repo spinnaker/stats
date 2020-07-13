@@ -5,7 +5,7 @@ USER curl
 WORKDIR /home/curl
 
 FROM curl as protoc
-ARG PROTOC_VERSION=3.9.0
+ARG PROTOC_VERSION=3.12.3
 RUN curl -vLo protoc.zip https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOC_VERSION}/protoc-${PROTOC_VERSION}-linux-x86_64.zip \
   && unzip protoc.zip \
   # We want all files/folders in bin/ to be executable
@@ -16,7 +16,7 @@ RUN curl -vLo protoc.zip https://github.com/protocolbuffers/protobuf/releases/do
   && find include/ -type f -exec chmod 644 {} \+
 
 FROM curl as protoc-gen-go
-ARG PROTOC_GEN_GO_TAG=v1.23.0
+ARG PROTOC_GEN_GO_TAG=v1.25.0
 RUN curl -L https://github.com/protocolbuffers/protobuf-go/releases/download/$PROTOC_GEN_GO_TAG/protoc-gen-go.$PROTOC_GEN_GO_TAG.linux.amd64.tar.gz \
   | tar -xz \
   && chmod 755 protoc-gen-go
@@ -31,7 +31,7 @@ RUN go get -d github.com/mitchellh/protoc-gen-go-json \
  && chmod 755 /go/bin/protoc-gen-go-json
 
 FROM curl as kork
-ARG KORK_VERSION=7.45.9
+ARG KORK_VERSION=7.52.1
 RUN curl -L https://github.com/spinnaker/kork/archive/v$KORK_VERSION.tar.gz | tar -xz \
   && mv kork-$KORK_VERSION kork \
   && find kork/ -type d -exec chmod 755 {} \+ \
